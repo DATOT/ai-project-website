@@ -3,7 +3,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ChatBubble from "./chatBubble";
-import { ApiClient, Message, User } from "@/shared/api";
+import { ApiClient, Message, User } from "@/shared/lib/api";
 
 interface ChatInterfaceProps {
   chatId: number;
@@ -83,7 +83,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ chatId, currentUser, apiC
   };
 
   return (
-    <div className="flex flex-col h-full w-full bg-base-100 border rounded-lg shadow-md">
+    <div className="flex flex-col h-full w-full">
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {messages.map((msg) => (

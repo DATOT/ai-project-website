@@ -43,7 +43,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
         <div className="prose prose-sm wrap-break-words">
           <ReactMarkdown>{content}</ReactMarkdown>
         </div>
-        <div className="text-right text-[10px] text-gray-500 mt-1">{formattedTime}</div>
+        <div className="text-right text-[10px] text-gray-300 mt-1">{formattedTime}</div>
       </div>
     </div>
   );

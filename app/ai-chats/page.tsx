@@ -1,10 +1,10 @@
 // app/ai-chats/page.tsx
 "use client";
 import { useEffect, useState } from "react";
-import { Chat, ApiClient } from "@/shared/api";
+import { Chat, createApi } from "@/shared/lib/api";
 import { useRouter } from "next/navigation";
 
-const api = new ApiClient();
+const api = createApi();
 api.setToken("myquicktoken");
 
 const AIChats = () => {

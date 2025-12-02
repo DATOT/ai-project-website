@@ -151,3 +151,12 @@ export class ApiClient {
     });
   }
 }
+
+export function createApi() {
+  const api = new ApiClient("http://localhost:5000");
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+  if (token) api.setToken(token);
+
+  return api;
+}
