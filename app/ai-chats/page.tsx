@@ -1,11 +1,14 @@
-"use client"
+// app/ai-chats/page.tsx
+"use client";
 import { useEffect, useState } from "react";
 import { Chat, ApiClient } from "@/shared/api";
+import { useRouter } from "next/navigation";
 
 const api = new ApiClient();
-// api.setToken("your-token");
+api.setToken("myquicktoken");
 
 const AIChats = () => {
+  const router = useRouter();
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,6 +40,7 @@ const AIChats = () => {
         ...prev,
         { id, is_ai: true, is_group: false, name: `AI Chat ${prev.length + 1}`, created_at: Date.now() },
       ]);
+      router.push(`/ai-chats/${id}`);
     } catch (err) {
       console.error("Failed to create new AI chat:", err);
     }
@@ -46,10 +50,10 @@ const AIChats = () => {
     return <div className="text-center mt-16 text-gray-500">Loading AI chats...</div>;
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">AI Chats</h1>
+        <h1 className="text-3xl font-bold">AI Chats</h1>
         <button
           onClick={createNewChat}
           className="btn btn-primary btn-sm"
@@ -59,25 +63,27 @@ const AIChats = () => {
       </div>
 
       {/* Chat list */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {chats.length === 0 && (
-          <p className="text-gray-500 col-span-full text-center">No AI chats yet. Start one!</p>
+          <p className="text-gray-500 col-span-full text-center mt-8">No AI chats yet. Start one!</p>
         )}
 
         {chats.map((chat) => (
           <div
             key={chat.id}
-            className="card card-bordered cursor-pointer hover:shadow-lg transition"
+            className="card card-bordered cursor-pointer hover:shadow-xl hover:scale-105 transition-transform duration-200"
+            onClick={() => router.push(`/ai-chats/${chat.id}`)}
           >
             <div className="card-body flex items-center space-x-4">
               <div className="avatar">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-lg">
+                  AI
                 </div>
               </div>
-              <div>
-                <h2 className="card-title">{chat.name || `AI Chat #${chat.id}`}</h2>
-                <p className="text-xs text-gray-400">
-                  {new Date(chat.created_at).toLocaleString()}
+              <div className="flex-1">
+                <h2 className="card-title text-lg">{chat.name || `AI Chat #${chat.id}`}</h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  Created: {new Date(chat.created_at).toLocaleString()}
                 </p>
               </div>
             </div>

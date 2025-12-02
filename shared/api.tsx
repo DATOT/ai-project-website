@@ -140,4 +140,14 @@ export class ApiClient {
       body: JSON.stringify(data),
     });
   }
+
+  async getAIRespond(data: {
+    chat_id: number;
+    content: string; // the user's message
+  }): Promise<{ message: Message }> {
+    return this.request("/ai/respond", {
+      method: "GET",
+      body: JSON.stringify(data),
+    });
+  }
 }

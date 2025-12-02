@@ -1,3 +1,4 @@
+// app/homepage/page.tsx
 "use client"
 import { } from "react";
 import { PostType } from "@/shared/postType";

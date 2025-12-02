@@ -1,3 +1,4 @@
+// app/homepage/components/NavBar.tsx
 import DropdownMenu from "./DropdownMenu";
 
 const Navbar = () => {

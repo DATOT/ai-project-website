@@ -1,4 +1,7 @@
+// app/homepage/components/PostCard.tsx
 import { PostType } from "@/shared/postType";
+import ReactMarkdown from "react-markdown";
+
 interface PostCardProps {
   post: PostType;
 }
@@ -13,8 +16,7 @@ const PostCard = ({ post }: PostCardProps) => {
       <div className="divider my-1"></div>
       <div
         className="card-body prose max-h-60 overflow-y-auto text-gray-400"
-        dangerouslySetInnerHTML={{ __html: post.getFormattedBodyText() }}
-      ></div>
+      ><ReactMarkdown>{post.getRawBodyText()}</ReactMarkdown></div>
 
       <div className="flex items-center justify-between mt-4 text-gray-400 text-sm">
         <div className="flex items-center gap-4">
