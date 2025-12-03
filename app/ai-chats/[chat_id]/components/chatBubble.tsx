@@ -1,5 +1,4 @@
 // app/ai-chats/[id]/components/chatBubble.tsx
-
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -18,16 +17,10 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
   isAI = false,
   isCurrentUser = false,
 }) => {
-  const bubbleBg = isCurrentUser
-    ? "bg-blue-500 text-white"
-    : isAI
-      ? "bg-gray-200 text-gray-900"
-      : "bg-green-200 text-gray-900";
-
-  const align = isCurrentUser ? "justify-end" : "justify-start";
-  const roundedClass = isCurrentUser
-    ? "rounded-tl-lg rounded-tr-lg rounded-bl-lg"
-    : "rounded-tl-lg rounded-tr-lg rounded-br-lg";
+  const alignment = isCurrentUser ? "chat-end" : "chat-start";
+  const bubbleType = isCurrentUser
+    ? "chat-bubble chat-bubble-primary"
+    : "chat-bubble chat-bubble-neutral";
 
   const displayName = isAI ? "AI" : senderName || "User";
 
@@ -37,13 +30,11 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       : sentAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
-    <div className={`flex ${align} mb-2`}>
-      <div className={`p-3 max-w-xs md:max-w-md ${bubbleBg} ${roundedClass} shadow-md`}>
-        <div className="text-xs font-semibold mb-1">{displayName}</div>
-        <div className="prose prose-sm wrap-break-words">
-          <ReactMarkdown>{content}</ReactMarkdown>
-        </div>
-        <div className="text-right text-[10px] text-gray-300 mt-1">{formattedTime}</div>
+    <div className={`chat ${alignment} mb-2`}>
+      <div className="chat-header mb-1 text-xs font-semibold">{displayName}</div>
+      <div className={bubbleType}>
+        <ReactMarkdown>{content}</ReactMarkdown>
+        <div className="text-right text-[10px] text-gray-400 mt-1">{formattedTime}</div>
       </div>
     </div>
   );

@@ -39,10 +39,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen flex-col">
       <form
         onSubmit={handleRegister}
-        className="bg-base-100 p-6 rounded-lg shadow-md w-[25%] space-y-4"
+        className="bg-base-100 p-6 rounded-lg shadow-md w-[25%] space-y-4 m-8"
       >
         <h1 className="text-2xl font-semibold text-center">Register</h1>
 
@@ -104,6 +104,12 @@ export default function RegisterPage() {
           </a>
         </div>
       </form>
+      <a
+        href="/"
+        className="link"
+      >
+        Back to Home
+      </a>
     </div>
   );
 }

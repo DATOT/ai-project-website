@@ -1,14 +1,35 @@
+"use client";
 // app/ai-chats/[id]/page.tsx
-"use client"; // make the page a client component
 
-import { useParams } from "next/navigation"; // App Router hook
+import { useParams } from "next/navigation";
 import ChatInterface from "./components/chatInterface";
 import { createApi, User } from "@/shared/lib/api";
+import { useEffect, useState } from "react";
 
 const AiChatInterface = () => {
-  const params = useParams<{ chat_id: any; }>(); // this is now a plain object
+  const params = useParams<{ chat_id: any }>();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const api = createApi();
-  const user: User = api.currentUser();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const current = await api.currentUser();
+        console.log("Current User:", current);
+        setUser(current);
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>Please log in to access this chat.</div>;
 
   return (
     <div className="h-screen w-full">

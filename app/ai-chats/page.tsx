@@ -76,7 +76,7 @@ const AIChats = () => {
           >
             <div className="card-body flex items-center space-x-4">
               <div className="avatar">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-14 h-14 rounded-full from-blue-400 to-purple-400 flex items-center justify-center text-white font-bold text-lg">
                   AI
                 </div>
               </div>

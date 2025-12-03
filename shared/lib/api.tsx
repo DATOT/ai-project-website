@@ -53,6 +53,8 @@ export class ApiClient {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
+      console.log(err);
+      console.log(res.json);
       throw new Error(err.error || `Request failed with status ${res.status}`);
     }
 
@@ -91,11 +93,19 @@ export class ApiClient {
       method: "POST",
       body: JSON.stringify(data),
     });
+    localStorage.setItem("token", result.token);
     this.setToken(result.token);
     return result;
   }
 
+  async logoutUser() {
+    localStorage.setItem("token", "");
+    this.setToken("");
+  }
+
   async currentUser(): Promise<User> {
+    let res = await this.request("/me");
+    console.log(res);
     return this.request("/me");
   }
 
@@ -141,12 +151,10 @@ export class ApiClient {
     });
   }
 
-  async getAIRespond(data: {
-    chat_id: number;
-    content: string; // the user's message
-  }): Promise<{ message: Message }> {
+  async getAIRespond(data: { chat_id: number; content: string }): Promise<{ message: Message }> {
     return this.request("/ai/respond", {
-      method: "GET",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
   }

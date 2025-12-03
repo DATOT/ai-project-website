@@ -1,4 +1,3 @@
-// app/ai-chats/[id]/components/chatInterface.tsx
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -65,6 +64,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ chatId, currentUser, apiC
         content: input,
       });
 
+      console.log("AI Res:", aiRes.message); // AI Res: undefined
       setMessages((prev) => [...prev, aiRes.message]);
       scrollToBottom();
     } catch (err) {
