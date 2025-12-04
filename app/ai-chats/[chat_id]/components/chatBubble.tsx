@@ -1,6 +1,9 @@
 // app/ai-chats/[id]/components/chatBubble.tsx
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css"; // import KaTeX styles
 
 interface ChatBubbleProps {
   content: string;
@@ -9,7 +12,6 @@ interface ChatBubbleProps {
   isAI?: boolean;
   isCurrentUser?: boolean;
 }
-
 const ChatBubble: React.FC<ChatBubbleProps> = ({
   content,
   senderName,
@@ -29,11 +31,17 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       ? new Date(sentAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       : sentAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
+  console.log(content);
   return (
     <div className={`chat ${alignment} mb-2`}>
       <div className="chat-header mb-1 text-xs font-semibold">{displayName}</div>
       <div className={bubbleType}>
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+        >
+          {content}
+        </ReactMarkdown>
         <div className="text-right text-[10px] text-gray-400 mt-1">{formattedTime}</div>
       </div>
     </div>

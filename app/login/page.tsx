@@ -24,7 +24,7 @@ export default function LoginPage() {
       localStorage.setItem("token", result.token);
 
       // redirect after login
-      window.location.href = `/user/${username}`; // change if needed
+      window.location.href = `/users/${username}`; // change if needed
     } catch (err: any) {
       setError(err.message || "Login failed");
     } finally {

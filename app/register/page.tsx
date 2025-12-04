@@ -9,6 +9,7 @@ const api = new ApiClient();
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isTeacher, setIsTeacher] = useState(false);
@@ -24,6 +25,7 @@ export default function RegisterPage() {
     try {
       await api.registerUser({
         username,
+        name,
         email,
         password,
         is_teacher: isTeacher,
@@ -55,6 +57,17 @@ export default function RegisterPage() {
             placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Name</label>
+          <input
+            className="input w-full"
+            placeholder={username ? username : "Enter name"}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>

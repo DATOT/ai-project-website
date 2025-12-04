@@ -1,6 +1,7 @@
 // shared/api.ts
 export type User = {
   id: number;
+  name: string;
   username: string;
   email: string;
   is_teacher: boolean;
@@ -9,7 +10,7 @@ export type User = {
 };
 
 export type Chat = {
-  id: number;
+  chat_id: number;
   name: string | null;
   is_group: boolean;
   is_ai: boolean;
@@ -31,9 +32,13 @@ export class ApiClient {
 
   constructor(baseUrl: string = "http://localhost:5000") {
     this.baseUrl = baseUrl;
+    if (typeof window !== "undefined") {
+      this.token = localStorage.getItem("token");
+    }
   }
 
   setToken(token: string) {
+    localStorage.setItem("token", token);
     this.token = token;
   }
 
@@ -45,6 +50,7 @@ export class ApiClient {
       "Content-Type": "application/json",
       ...(this.token ? { Authorization: `Bearer ${this.token}` } : {}),
     };
+    console.log(headers);
 
     const res = await fetch(`${this.baseUrl}${path}`, {
       ...options,
@@ -54,7 +60,6 @@ export class ApiClient {
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       console.log(err);
-      console.log(res.json);
       throw new Error(err.error || `Request failed with status ${res.status}`);
     }
 
@@ -93,7 +98,6 @@ export class ApiClient {
       method: "POST",
       body: JSON.stringify(data),
     });
-    localStorage.setItem("token", result.token);
     this.setToken(result.token);
     return result;
   }
@@ -104,14 +108,13 @@ export class ApiClient {
   }
 
   async currentUser(): Promise<User> {
-    let res = await this.request("/me");
-    console.log(res);
     return this.request("/me");
   }
 
   // ================= Chats =================
 
   async getChatsByUserId(user_id: number): Promise<{ chat_ids: number[] }> {
+    console.log(user_id);
     return this.request(`/chats/user/${user_id}`);
   }
 
@@ -119,7 +122,7 @@ export class ApiClient {
     return this.request(`/chats/${chat_id}`);
   }
 
-  async createChat(data: { name?: string | null; is_group: boolean; is_ai?: boolean }): Promise<{ id: number }> {
+  async createChat(data: { name: string; is_group: boolean; is_ai?: boolean }): Promise<{ id: number }> {
     return this.request("/chats/create", {
       method: "POST",
       body: JSON.stringify(data),
@@ -154,7 +157,6 @@ export class ApiClient {
   async getAIRespond(data: { chat_id: number; content: string }): Promise<{ message: Message }> {
     return this.request("/ai/respond", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
   }
