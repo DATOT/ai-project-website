@@ -67,7 +67,7 @@ const AIChats = () => {
           <p className="text-gray-500 col-span-full text-center mt-8">No AI chats yet. Start one!</p>
         )}
         {chats.map((chat, idx) => {
-          console.log(chat); return (
+          return (
             <div
               key={chat.chat_id}
               className="card card-bordered cursor-pointer hover:shadow-xl hover:scale-105 transition-transform duration-200"

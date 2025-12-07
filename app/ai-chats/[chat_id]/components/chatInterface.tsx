@@ -64,9 +64,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ chatId, currentUser, apiC
         content: input,
       });
 
-      console.log("AI Res:", aiRes.message); // AI Res: undefined
+      // console.log("AI Res:", aiRes.message); // AI Res: undefined
       setMessages((prev) => [...prev, aiRes.message]);
       scrollToBottom();
+
+      apiClient.AIAnalyze({ user_id: currentUser.id, student_answer: input, ai_answer: aiRes.message.content }).catch((err) => console.error("AIAnalyze failed:", err));;
     } catch (err) {
       console.error("AI respond error:", err);
     } finally {

@@ -30,7 +30,7 @@ export class ApiClient {
   private baseUrl: string;
   private token: string | null = null;
 
-  constructor(baseUrl: string = "http://localhost:5000") {
+  constructor(baseUrl: string = "http://127.0.0.1:5000") {
     this.baseUrl = baseUrl;
     if (typeof window !== "undefined") {
       this.token = localStorage.getItem("token");
@@ -160,10 +160,21 @@ export class ApiClient {
       body: JSON.stringify(data),
     });
   }
+
+  async AIAnalyze(data: { user_id: number, student_answer: string; ai_answer: string }): Promise<{ message: Message }> {
+    return this.request("/ai/analyze", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getAIAnalysis(data: { user_id: number }): Promise<{ analyses: any[] }> {
+    return this.request(`/ai/analysis/get/${data.user_id}`);
+  }
 }
 
 export function createApi() {
-  const api = new ApiClient("http://localhost:5000");
+  const api = new ApiClient("http://127.0.0.1:5000");
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   if (token) api.setToken(token);

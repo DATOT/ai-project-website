@@ -12,6 +12,16 @@ interface ChatBubbleProps {
   isAI?: boolean;
   isCurrentUser?: boolean;
 }
+
+function preProcessContent(content: string) {
+  // Block math
+  content = content.replace(/\\\[(([\s\S]*?))\\\]/g, `$$$\n$1\n$$$`);
+
+  // Inline math
+  content = content.replace(/\\\(([\s\S]*?)\\\)/g, `$$\n$1\n$$`);
+  return content;
+}
+
 const ChatBubble: React.FC<ChatBubbleProps> = ({
   content,
   senderName,
@@ -40,7 +50,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
           remarkPlugins={[remarkMath]}
           rehypePlugins={[rehypeKatex]}
         >
-          {content}
+          {preProcessContent(content)}
         </ReactMarkdown>
         <div className="text-right text-[10px] text-gray-400 mt-1">{formattedTime}</div>
       </div>
