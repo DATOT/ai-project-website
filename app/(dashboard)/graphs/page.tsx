@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createApi } from "@/shared/lib/api";
-import { Card } from "./components/ui/card";
+import { Card } from "@f/graphs/components/ui/card";
 
 import {
   LineChart,

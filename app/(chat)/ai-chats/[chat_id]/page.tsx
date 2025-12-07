@@ -2,8 +2,8 @@
 // app/ai-chats/[id]/page.tsx
 
 import { useParams } from "next/navigation";
-import ChatInterface from "./components/chatInterface";
-import { createApi, User } from "@/shared/lib/api";
+import ChatInterface from "@f/ai-chats/components/chatInterface";
+import { createApi, User } from "@s/lib/api";
 import { useEffect, useState } from "react";
 
 const AiChatInterface = () => {

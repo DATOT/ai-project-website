@@ -1,6 +1,6 @@
 "use client"
 
-import { createApi, User } from "@/shared/lib/api";
+import { createApi, User } from "@s/lib/api";
 import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

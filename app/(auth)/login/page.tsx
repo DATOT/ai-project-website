@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { ApiClient } from "@/shared/lib/api";
+import { ApiClient } from "@s/lib/api";
 
 const api = new ApiClient();
 

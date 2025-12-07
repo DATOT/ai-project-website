@@ -1,7 +1,7 @@
 // app/ai-chats/page.tsx
 "use client";
 import { useEffect, useState } from "react";
-import { Chat, createApi, User } from "@/shared/lib/api";
+import { Chat, createApi, User } from "@s/lib/api";
 import { useRouter } from "next/navigation";
 
 const api = createApi();

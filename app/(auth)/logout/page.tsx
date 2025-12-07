@@ -1,5 +1,5 @@
 "use client";
-import { createApi } from "@/shared/lib/api";
+import { createApi } from "@s/lib/api";
 // app/logout/page.tsx
 
 import { useRouter } from "next/navigation";

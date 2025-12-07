@@ -1,9 +1,9 @@
 // app/homepage/page.tsx
 "use client"
 import { } from "react";
-import { PostType } from "@/shared/postType";
-import Navbar from "./components/Navbar";
-import PostCard from "./components/PostCard";
+import { PostType } from "@s/types/postType";
+import Navbar from "@f/homepage/components/Navbar";
+import PostCard from "@f/homepage/components/PostCard";
 
 let postList: PostType[] = [
   new PostType("Test1", "BodyText"),
