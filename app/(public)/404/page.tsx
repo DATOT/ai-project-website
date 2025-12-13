@@ -4,4 +4,4 @@ const fourOfourPage = () => {
   )
 }
 
-export default fourOfourPage()
+export default fourOfourPage;

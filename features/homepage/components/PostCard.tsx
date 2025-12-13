@@ -1,5 +1,5 @@
 // app/homepage/components/PostCard.tsx
-import { PostType } from "@/shared/postType";
+import { PostType } from "@s/types/postType";
 import ReactMarkdown from "react-markdown";
 
 interface PostCardProps {
