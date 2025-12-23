@@ -8,7 +8,7 @@ const Navbar = () => {
         <DropdownMenu />
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl" href="/">daisyUI</a>
+        <a className="btn btn-ghost text-xl" href="/">AI Project</a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

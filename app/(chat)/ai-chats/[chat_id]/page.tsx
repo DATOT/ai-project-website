@@ -1,13 +1,17 @@
 "use client";
-// app/ai-chats/[id]/page.tsx
 
+import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
-import ChatInterface from "@f/ai-chats/components/chatInterface";
 import { createApi, User } from "@s/lib/api";
 import { useEffect, useState } from "react";
 
+const ChatInterface = dynamic(
+  () => import("@/features/ai-chats/components/ChatInterface"),
+  { ssr: false }
+);
+
 const AiChatInterface = () => {
-  const params = useParams<{ chat_id: any }>();
+  const params = useParams<{ [key: string]: string | undefined }>();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,10 +21,7 @@ const AiChatInterface = () => {
     const fetchUser = async () => {
       try {
         const current = await api.currentUser();
-        console.log("Current User:", current);
         setUser(current);
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
       } finally {
         setLoading(false);
       }
@@ -33,7 +34,13 @@ const AiChatInterface = () => {
 
   return (
     <div className="h-screen w-full">
-      <ChatInterface chatId={params.chat_id} currentUser={user} apiClient={api} />
+      <a href="/homepage" className="absolute m-2 z-50 btn btn-rounded btn-ghost"> {"<"} </a>
+      <ChatInterface
+        key={params.chat_id}
+        chatId={Number(params.chat_id)}
+        currentUser={user}
+        apiClient={api}
+      />
     </div>
   );
 };

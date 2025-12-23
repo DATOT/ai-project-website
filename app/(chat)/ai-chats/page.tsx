@@ -44,6 +44,7 @@ const AIChats = () => {
         ...prev,
         { chat_id: id, is_ai: true, is_group: false, name: `AI Chat #${prev.length + 1}`, created_at: Date.now() },
       ]);
+      console.log(id);
       await api.addMemberToChat({ chat_id: id, user_id: cUser.id });
     } catch (err) {
       console.error("Failed to create new AI chat:", err);
@@ -66,7 +67,7 @@ const AIChats = () => {
         {chats.length === 0 && (
           <p className="text-gray-500 col-span-full text-center mt-8">No AI chats yet. Start one!</p>
         )}
-        {chats.map((chat, idx) => {
+        {chats.map((chat) => {
           return (
             <div
               key={chat.chat_id}
