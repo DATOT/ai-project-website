@@ -23,7 +23,7 @@
       "@f/*": ["./features/*"],
       "@s/*": ["./shared/*"],
       "@p/*": ["./public/*"],
-      "@backend/*": ["../ai-app-server/src/*"]
+      "@backend/*": ["./backend-shared/*"],
     }
   },
   "include": [
